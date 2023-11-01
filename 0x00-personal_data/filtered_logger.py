@@ -54,7 +54,7 @@ def get_logger() -> logging.Logger:
 def get_db() -> mysql.connector.connection.MySQLConnection:
     """returns a connector to the database"""
     username = os.getenv("PERSONAL_DATA_DB_USERNAME", 'root')
-    password = os.getenv("PERSONAL_DATA_DB_PASSWORD", '')
+    password = os.getenv("PERSONAL_DATA_DB_PASSWORD", ' ')
     host = os.getenv("PERSONAL_DATA_DB_HOST", 'localhost')
     database = os.getenv("PERSONAL_DATA_DB_NAME")
     conn = mysql.connector.connect(user=username,
