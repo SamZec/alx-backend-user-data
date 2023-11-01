@@ -64,3 +64,23 @@ def get_db() -> mysql.connector.connection.MySQLConnection:
                                    password=password
                                    )
     return conn
+
+
+def main() -> None:
+    """retrieve all rows in the users table"""
+    db = get_db()
+    cur = db.cursor()
+    cur.execute("SELECT * FROM users;")
+    for item in cur:
+        ms = f'name={item[0]};email={item[1]};phone={item[2]};'\
+             f'ssn={item[3]};password={item[4]};ip={item[5]};'\
+             f'last_login={item[6]};user_agent={item[7]};'
+        log_record = logging.LogRecord("my_logger",
+                                       logging.INFO, None, None,
+                                       ms, None, None)
+        formatter = RedactingFormatter(PII_FIELDS)
+        print(formatter.format(log_record))
+
+
+if __name__ == '__main__':
+    main()
