@@ -16,9 +16,9 @@ class Auth:
         for item in excluded_paths:
             if re.search(item, path):
                 return False
-        if (path in excluded_paths or (path + '/') in excluded_paths or
+        '''if (path in excluded_paths or (path + '/') in excluded_paths or
                 path[:-1] in excluded_paths):
-            return False
+            return False'''
         return True
 
     def authorization_header(self, request=None) -> str:
