@@ -2,6 +2,7 @@
 """api/v1/auth/auth.py - Auth class"""
 
 
+import re
 from flask import request
 from typing import List, TypeVar
 
@@ -12,6 +13,9 @@ class Auth:
         """require auth"""
         if not path or not excluded_paths or len(excluded_paths) == 0:
             return True
+        for item in excluded_paths:
+            if re.match(item, path):
+                return False
         if (path in excluded_paths or (path + '/') in excluded_paths or
                 path[:-1] in excluded_paths):
             return False
