@@ -24,8 +24,11 @@ class SessionDBAuth(SessionExpAuth):
         """
         if not session_id and type(session_id) is not str:
             return None
-        user_session = UserSession.search({'session_id': session_id})
-        if not user_session[0]:
+        try:
+            user_session = UserSession.search({'session_id': session_id})
+        except Exception:
+            return None
+        if not user_session:
             return None
         if self.session_duration <= 0:
             return user_session[0].user_id
