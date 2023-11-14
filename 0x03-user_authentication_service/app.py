@@ -40,7 +40,7 @@ def login():
         abort(401)
     if auth.valid_login(email, password):
         session_id = auth.create_session(email)
-        resp = make_response({"email": email,"message": "logged in"})
+        resp = make_response({"email": email, "message": "logged in"})
         resp.set_cookie('session_id', session_id)
         return resp
     return abort(401)
