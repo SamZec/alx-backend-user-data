@@ -10,10 +10,8 @@ from sqlalchemy.exc import InvalidRequestError
 
 def _hash_password(password: str) -> bytes:
     """ hash password """
-    if password and type(password) == str:
-        byte_password = bytes(password, 'utf-8')
-        return bcrypt.hashpw(byte_password, bcrypt.gensalt())
-    return None
+    byte_password = bytes(password, 'utf-8')
+    return bcrypt.hashpw(byte_password, bcrypt.gensalt())
 
 
 class Auth:
