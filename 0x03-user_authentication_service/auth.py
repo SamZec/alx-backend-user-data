@@ -10,8 +10,16 @@ from sqlalchemy.exc import InvalidRequestError
 
 def _hash_password(password: str) -> bytes:
     """ hash password """
-    byte_password = bytes(password, 'utf-8')
-    return bcrypt.hashpw(byte_password, bcrypt.gensalt())
+    if password and type(password) == str:
+        byte_password = bytes(password, 'utf-8')
+        return bcrypt.hashpw(byte_password, bcrypt.gensalt())
+    return None
+
+
+def _generate_uuid(self) -> uuid4:
+    """return a string representation of a new UUID"""
+    return str(uuid4())
+
 
 
 class Auth:
@@ -44,17 +52,13 @@ class Auth:
             return True
         return False
 
-    def _generate_uuid(self) -> uuid4:
-        """return a string representation of a new UUID"""
-        return str(uuid4())
-
     def create_session(self, email: str) -> str:
         """returns the session ID as a string."""
         try:
             user = self._db.find_user_by(email=email)
         except (InvalidRequestError, NoResultFound) as e:
             return None
-        session_id = self._generate_uuid()
+        session_id = _generate_uuid()
         self._db.update_user(user.id, session_id=session_id)
         return session_id
 
@@ -83,7 +87,7 @@ class Auth:
             user = self._db.find_user_by(email=email)
         except NoResultFound:
             raise ValueError
-        reset_token = self._generate_uuid()
+        reset_token = _generate_uuid()
         self._db.update_user(user.id, reset_token=reset_token)
         return reset_token
 
