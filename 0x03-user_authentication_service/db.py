@@ -36,9 +36,9 @@ class DB:
     def add_user(self, email: str, hashed_password: str) -> TypeVar('User'):
         """save user to the database"""
         if not email and type(email) is not str:
-            return None
+            return
         if not hashed_password and type(hashed_password) is not str:
-            return None
+            return
         user = User(email=email, hashed_password=hashed_password)
         session = self._session
         session.add(user)
