@@ -43,7 +43,7 @@ def login():
         resp = make_response({"email": email, "message": "logged in"})
         resp.set_cookie('session_id', session_id)
         return resp
-    return abort(401)
+    abort(401)
 
 
 @app.route('/logout', methods=['DELETE'], strict_slashes=False)
