@@ -39,7 +39,7 @@ class DB:
         session = self._session
         session.add(user)
         session.commit()
-        return user
+        return None
 
 
 '''
