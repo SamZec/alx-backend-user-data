@@ -41,6 +41,8 @@ class DB:
         session.commit()
         return user
 
+
+'''
     def find_user_by(self, **kwargs: dict) -> TypeVar('User'):
         """returns the first row found in users table filtered by **kwargs"""
         session = self._session
@@ -67,3 +69,4 @@ class DB:
         session.add(user)
         session.commit()
         return None
+'''
