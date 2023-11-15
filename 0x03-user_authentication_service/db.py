@@ -48,7 +48,7 @@ class DB:
         for item in kwargs.keys():
             if not hasattr(User, item):
                 raise InvalidRequestError
-        user = session.query(User).filter_by(**kwargs).first()
+        user = session.query(User).filter_by(**kwargs).one()
         if not user:
             raise NoResultFound
         return user
