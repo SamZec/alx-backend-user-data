@@ -65,6 +65,6 @@ class DB:
                 raise ValueError
             setattr(user, key, value)
         session = self._session
-        session.add(user)
+        #session.add(user)
         session.commit()
         return None
