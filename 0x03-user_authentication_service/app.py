@@ -33,11 +33,7 @@ def users():
 def login():
     """log user in"""
     email = request.form.get('email')
-    if not email:
-        abort(401)
     password = request.form.get('password')
-    if not password:
-        abort(401)
     if auth.valid_login(email, password):
         session_id = auth.create_session(email)
         resp = make_response({"email": email, "message": "logged in"})
@@ -55,8 +51,8 @@ def logout():
         if not user:
             abort(403)
         auth.destroy_session(user.id)
-        return redirect(url_for('index')), 307
-    abort(401)
+        return redirect('/')
+    abort(403)
 
 
 @app.route('/profile', strict_slashes=False)
@@ -66,9 +62,9 @@ def profile():
     if session_id:
         user = auth.get_user_from_session_id(session_id)
         if user:
-            return jsonify({"email": user.email})
+            return jsonify({"email": user.email}), 200
         abort(403)
-    abort(401)
+    abort(403)
 
 
 @app.route('/reset_password', methods=['POST'], strict_slashes=False)
