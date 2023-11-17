@@ -2,7 +2,7 @@
 """auth.py - Hash password"""
 import bcrypt
 from db import DB
-from typing import TypeVar
+from user import User
 from uuid import uuid4
 from sqlalchemy.orm.exc import NoResultFound
 from sqlalchemy.exc import InvalidRequestError
