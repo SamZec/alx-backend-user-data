@@ -28,7 +28,7 @@ class Auth:
     def __init__(self):
         self._db = DB()
 
-    def register_user(self, email: str, password: str) -> TypeVar('User'):
+    def register_user(self, email: str, password: str) -> User:
         """return a User object."""
         try:
             self._db.find_user_by(email=email)
@@ -61,7 +61,7 @@ class Auth:
         self._db.update_user(user.id, session_id=session_id)
         return session_id
 
-    def get_user_from_session_id(self, session_id: str) -> TypeVar('User'):
+    def get_user_from_session_id(self, session_id: str) -> User:
         """returns the corresponding User to session_id"""
         if session_id and type(session_id) == str:
             try:
