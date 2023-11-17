@@ -42,7 +42,7 @@ def login():
     abort(401)
 
 
-@app.route('/logout', methods=['DELETE'], strict_slashes=False)
+@app.route('/sessions', methods=['DELETE'], strict_slashes=False)
 def logout():
     """logs user out"""
     session_id = request.cookies.get('session_id')
@@ -51,7 +51,7 @@ def logout():
         if not user:
             abort(403)
         AUTH.destroy_session(user.id)
-        return redirect('/'), 302
+        return redirect('/')
     abort(403)
 
 
