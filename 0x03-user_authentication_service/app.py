@@ -34,7 +34,7 @@ def login():
     """log user in"""
     email = request.form.get('email')
     password = request.form.get('password')
-    if auth.valid_login(email, password):
+    if AUTH.valid_login(email, password):
         session_id = AUTH.create_session(email)
         resp = make_response({"email": email, "message": "logged in"})
         resp.set_cookie('session_id', session_id)
