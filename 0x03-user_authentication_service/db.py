@@ -33,7 +33,7 @@ class DB:
             self.__session = DBSession()
         return self.__session
 
-    def add_user(self, email: str, hashed_password: str) -> TypeVar('User'):
+    def add_user(self, email: str, hashed_password: str) -> User:
         """save user to the database"""
         user = User(email=email, hashed_password=hashed_password)
         session = self._session
@@ -41,7 +41,7 @@ class DB:
         session.commit()
         return user
 
-    def find_user_by(self, **kwargs: dict) -> TypeVar('User'):
+    def find_user_by(self, **kwargs: dict) -> User:
         """returns the first row found in users table filtered by **kwargs"""
         session = self._session
         # user = session.query(User).filter_by(**kwargs).first()
@@ -54,7 +54,7 @@ class DB:
             raise NoResultFound
         return user
 
-    def update_user(self, user_id, **kwargs: dict) -> None:
+    def update_user(self, user_id: int, **kwargs: dict) -> None:
         """update user’s attributes passed as arguments"""
         try:
             user = self.find_user_by(id=user_id)
